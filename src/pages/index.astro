@@ -50,6 +50,14 @@ const EXPERIENCE = career.entries;
 const CV_URL = career.cv_url;
 
 const ALL_FILTERS = ['All', 'Kotlin', 'Android', 'KMP', 'Compose', 'Flutter', 'Rust'];
+const FILTER_ICONS: Record<string, string> = {
+  Kotlin: 'devicon-kotlin-plain',
+  Android: 'devicon-android-plain',
+  KMP: 'devicon-kotlin-plain',
+  Compose: 'devicon-jetpackcompose-plain',
+  Flutter: 'devicon-flutter-plain',
+  Rust: 'devicon-rust-plain',
+};
 const skills = profile.stack;
 
 const links = [
@@ -193,7 +201,9 @@ function getTechColor(label: string) {
       
       <div class="filter-wrap" id="project-filters">
         {ALL_FILTERS.map((t, idx) => (
-          <button class={`filter-btn ${idx === 0 ? 'active' : ''}`} data-filter={t}>{t}</button>
+          <button class={`filter-btn ${idx === 0 ? 'active' : ''}`} data-filter={t}>
+            {FILTER_ICONS[t] && <i class={`${FILTER_ICONS[t]} filter-icon`}></i>}{t}
+          </button>
         ))}
       </div>
       
@@ -432,7 +442,8 @@ function getTechColor(label: string) {
   .tech-badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-family: 'Space Mono', monospace; font-weight: 700; background: color-mix(in srgb, var(--badge-color) 15%, transparent); color: var(--badge-color); border: 1px solid color-mix(in srgb, var(--badge-color) 30%, transparent); letter-spacing: 0.05em; white-space: nowrap; }
 
   .filter-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
-  .filter-btn { padding: 8px 18px; border-radius: 20px; cursor: pointer; border: 1px solid var(--theme-border); background: transparent; color: var(--theme-text-muted); font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.06em; transition: all 0.2s; }
+  .filter-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 20px; cursor: pointer; border: 1px solid var(--theme-border); background: transparent; color: var(--theme-text-muted); font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.06em; transition: all 0.2s; }
+  .filter-icon { font-size: 14px; line-height: 1; }
   .filter-btn.active { border-color: var(--theme-accent); background: color-mix(in srgb, var(--theme-accent) 14%, transparent); color: var(--theme-accent); }
 
   .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
