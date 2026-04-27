@@ -310,7 +310,10 @@ function getTechColor(label: string) {
             <div class="timeline-content" style={i < EXPERIENCE.length - 1 ? "padding-bottom: 36px;" : ""}>
               <div class="timeline-period">{item.period}</div>
               <div class="timeline-role">{item.role}</div>
-              <div class="timeline-company">{item.company}</div>
+              <div class="timeline-company">
+                {item.logo && <img src={item.logo} alt={item.company} class="company-logo" />}
+                {item.url ? <a href={item.url} class="company-link" target="_blank" rel="noopener noreferrer">{item.company}</a> : item.company}
+              </div>
               <p class="timeline-desc">{item.description}</p>
             </div>
           </div>
@@ -478,7 +481,10 @@ function getTechColor(label: string) {
   .timeline-line { width: 2px; flex: 1; background: var(--theme-border); margin-top: 8px; }
   .timeline-period { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--theme-accent); margin-bottom: 4px; letter-spacing: 0.08em; }
   .timeline-role { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 20px; color: var(--theme-text); margin-bottom: 2px; }
-  .timeline-company { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--theme-accent-alt); margin-bottom: 10px; }
+  .timeline-company { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--theme-accent-alt); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .company-logo { width: 28px; height: 28px; object-fit: contain; border-radius: 4px; flex-shrink: 0; }
+  .company-link { color: var(--theme-accent-alt); text-decoration: none; }
+  .company-link:hover { color: var(--theme-accent); text-decoration: underline; }
   .timeline-desc { margin: 0; font-size: 13px; color: var(--theme-text-muted); line-height: 1.7; font-family: 'DM Sans', sans-serif; }
 
   .contact-desc { font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--theme-text-muted); line-height: 1.8; max-width: 480px; margin: 0 auto 48px; }

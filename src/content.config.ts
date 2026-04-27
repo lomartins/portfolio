@@ -40,6 +40,8 @@ const careerCollection = defineCollection({
       period: z.string(),
       role: z.string(),
       company: z.string(),
+      logo: z.string().optional(),
+      url: z.string().optional(),
       description: z.string(),
     })),
   }),
