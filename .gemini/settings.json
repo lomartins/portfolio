@@ -1,16 +1,4 @@
 {
-  "hooksConfig": {
-    "disabled": [
-      "claude-mem",
-      "claude-mem",
-      "claude-mem",
-      "claude-mem",
-      "claude-mem",
-      "claude-mem",
-      "claude-mem",
-      "claude-mem"
-    ]
-  },
   "mcpServers": {
     "Astro docs": {
       "url": "https://mcp.docs.astro.build/mcp",
