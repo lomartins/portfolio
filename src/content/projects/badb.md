@@ -5,7 +5,7 @@ tier: C
 featured: false
 description: 'Better ADB — a Rust CLI tool for streamlined Android debugging workflows.'
 tech: ['Rust', 'CLI']
-github: '#'
+github: 'https://github.com/lomartins/badb'
 ---
 
 ## Better ADB (badb)

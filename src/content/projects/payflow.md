@@ -5,7 +5,7 @@ tier: C
 featured: false
 description: 'KMP payment tracker demonstrating shared business logic across Android & iOS.'
 tech: ['Kotlin', 'KMP']
-github: '#'
+github: 'https://github.com/lomartins/payflow-kmm-app'
 ---
 
 ## Payflow KMM

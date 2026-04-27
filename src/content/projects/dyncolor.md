@@ -5,7 +5,7 @@ tier: B
 featured: false
 description: 'Demo: dynamic color theming + programmatic ImageVector in Jetpack Compose & Material3. 4 GitHub stars.'
 tech: ['Kotlin', 'Android', 'Compose', 'Material3']
-github: '#'
+github: 'https://github.com/lomartins/compose-dynamic-color-imagevector'
 ---
 
 ## Compose Dynamic Color

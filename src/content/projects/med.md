@@ -5,7 +5,7 @@ tier: A
 featured: true
 description: 'Android medication reminder. Modern stack: Jetpack Compose, Room, Koin, MockK. Has tests & video demo. KMP migration in progress.'
 tech: ['Kotlin', 'Android', 'Compose', 'Room', 'Koin']
-github: '#'
+github: 'https://github.com/lomartins/med-reminder-app'
 ---
 
 ## Medication Reminder
