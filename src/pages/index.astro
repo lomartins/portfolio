@@ -218,7 +218,11 @@ function getTechColor(label: string) {
           return (
             <a href={`/projects/${p.id}`} class="project-card" data-tech={p.data.tech.join(',')}>
               <div class="project-card-highlight"></div>
-              <div class="project-emoji">{p.data.emoji}</div>
+              <div class="project-emoji">
+                {p.data.image
+                  ? <img src={p.data.image} alt="" aria-hidden="true" />
+                  : p.data.emoji}
+              </div>
               <h3 class="project-name">{p.data.name}</h3>
               <p class="project-desc">{p.data.description}</p>
               <div class="badges-wrap">
@@ -449,7 +453,8 @@ function getTechColor(label: string) {
   .project-card:hover { background: var(--theme-surface-hover); border-color: color-mix(in srgb, var(--theme-accent) 70%, transparent); box-shadow: var(--theme-glow); transform: translateY(-4px); }
   .project-card-highlight { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: all 0.3s ease; }
   .project-card:hover .project-card-highlight { background: linear-gradient(90deg, transparent, var(--theme-accent), transparent); }
-  .project-emoji { font-size: 26px; margin-bottom: 10px; }
+  .project-emoji { font-size: 26px; margin-bottom: 10px; line-height: 1; }
+  .project-emoji img { width: 26px; height: 26px; object-fit: contain; display: block; }
   .project-name { margin: 0 0 8px; font-family: 'Space Mono', monospace; font-size: 14px; color: var(--theme-text); font-weight: 700; }
   .project-desc { margin: 0 0 16px; font-size: 13px; color: var(--theme-text-muted); line-height: 1.65; font-family: 'DM Sans', sans-serif; }
 
