@@ -3,6 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import MainTweaks from '../components/MainTweaks.astro';
 import { getCollection } from 'astro:content';
 
+const profileEntries = await getCollection('profile');
+const profile = profileEntries[0].data;
+
 const projects = (await getCollection('projects')).sort((a, b) => {
   const tiers: Record<string, number> = { S: 1, A: 2, B: 3, C: 4 };
   return (tiers[a.data.tier] || 99) - (tiers[b.data.tier] || 99);
@@ -54,11 +57,11 @@ const EXPERIENCE = [
 ];
 
 const ALL_FILTERS = ['All', 'Kotlin', 'Android', 'KMP', 'Compose', 'Rust'];
-const skills = ['Kotlin', 'Android SDK', 'Compose', 'KMP', 'Rust', 'SQLite', 'Room', 'Koin', 'MockK', 'Observability', 'Architecture'];
+const skills = profile.stack;
 
 const links = [
   { label: 'email', href: 'mailto:contact@luisamartins.dev', pre: '✉️' },
-  { label: 'github', href: 'https://github.com/luisamartins', pre: '⚡' },
+  { label: 'github', href: 'https://github.com/lomartins', pre: '⚡' },
   { label: 'linkedin', href: '#', pre: '💼' },
 ];
 
@@ -75,7 +78,7 @@ function getTechColor(label: string) {
 }
 ---
 
-<Layout title="Luisa Martins — Mobile Developer">
+<Layout title={`${profile.name} — ${profile.hero_title}`}>
   <MainTweaks />
 
   <nav id="navbar" class="navbar">
@@ -106,14 +109,11 @@ function getTechColor(label: string) {
 
     <div class="hero-content">
       <div>
-        <div class="hero-subtitle">{'>'} Mobile Developer</div>
-        <h1 class="glitch-wrap hero-title" data-text="Luisa Martins">Luisa Martins</h1>
-        <p class="hero-desc">
-          5+ years in Android &amp; Kotlin Multiplatform.
-          Platform infrastructure, observability, and cross-platform migration — at scale.
-        </p>
+        <div class="hero-subtitle">{'>'} {profile.hero_title}</div>
+        <h1 class="glitch-wrap hero-title" data-text={profile.name}>{profile.name}</h1>
+        <p class="hero-desc">{profile.hero_description}</p>
         <div class="hero-badges">
-          {['Kotlin', 'KMP', 'Android', 'Rust'].map(t => {
+          {profile.hero_tags.map(t => {
             const bg = getTechColor(t);
             return <span class="tech-badge" style={`--badge-color: ${bg};`}>{t}</span>
           })}
@@ -146,11 +146,11 @@ function getTechColor(label: string) {
         <div class="terminal-container">
           <div class="terminal-window">
             <div class="term-line"><span class="term-prompt">$</span> whoami</div>
-            <div class="term-line"><span class="term-green">luisa_martins</span></div>
+            <div class="term-line"><span class="term-green">{profile.name.toLowerCase().replace(' ', '_')}</span></div>
             <div class="term-line"><span class="term-prompt">$</span> stack --list</div>
-            <div class="term-line"><span class="term-cyan">kotlin kmp android rust</span></div>
+            <div class="term-line"><span class="term-cyan">{profile.hero_tags.map(t => t.toLowerCase()).join(' ')}</span></div>
             <div class="term-line"><span class="term-prompt">$</span> status</div>
-            <div class="term-line"><span class="term-accent-alt">open to senior roles 🟢</span></div>
+            <div class="term-line"><span class="term-accent-alt">{profile.about_status} 🟢</span></div>
           </div>
         </div>
         
@@ -168,23 +168,14 @@ function getTechColor(label: string) {
     <div class="container">
       <div class="section-header">
         <div class="section-num">01 / About</div>
-        <h2 class="section-title">Infrastructure nerd.<br /><span class="text-accent">Mobile at heart.</span></h2>
+        <h2 class="section-title">{profile.about_title_1}<br /><span class="text-accent">{profile.about_title_2}</span></h2>
       </div>
       <div class="about-grid">
         <div>
-          <p class="about-desc">
-            I build mobile infrastructure — the plumbing that makes apps reliable,
-            observable, and easy to maintain across platforms. Five-plus years of Android
-            and Kotlin Multiplatform, focused on the work that scales: crash monitoring,
-            KMP migrations, release tooling, platform architecture.
-          </p>
-          <p class="about-desc">
-            When I'm not writing Kotlin or Rust, I'm speedrunning a Valve game,
-            watching anime, or cuddling a Blåhaj. Trans, she/her, and I bring that
-            energy to the teams I work with.
-          </p>
+          <p class="about-desc">{profile.about_paragraph_1}</p>
+          <p class="about-desc">{profile.about_paragraph_2}</p>
           <div class="about-status">
-            <span class="text-accent">$</span> currently open to senior mobile / platform infra roles
+            <span class="text-accent">$</span> {profile.about_status}
           </div>
         </div>
         <div>

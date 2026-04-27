@@ -3,18 +3,33 @@ name: owo
 image: 'https://raw.githubusercontent.com/lomartins/owo/refs/heads/main/docs/logo.svg'
 tier: S
 featured: true
-description: 'Personal finance system. Rust backend with Axum + SQLite. KMP mobile & CLI in progress. Full monorepo with architecture docs, tests, and conventional commits.'
-tech: ['Rust', 'Axum', 'SQLite', 'KMP']
+description: 'Personal finance management system. Rust + Axum + SQLite backend, KMP mobile (iOS/Android), web interface, and Rust CLI. Monorepo with architecture docs, Open Finance API integration, and self-hosting focus.'
+tech: ['Rust', 'Axum', 'SQLite', 'KMP', 'Kotlin']
 github: 'https://github.com/lomartins/owo'
 ---
 
-## owo - Personal Finance System
+## owo - Personal Finance Management
 
-A comprehensive personal finance tracking system featuring a robust Rust backend and Kotlin Multiplatform mobile app.
+Full-stack personal finance system built for reliability and privacy. Monorepo spanning backend, mobile, web, and CLI.
 
 ### Architecture
-- **Backend**: Rust, Axum, SQLite
-- **Mobile**: Kotlin Multiplatform (Android & iOS)
-- **CLI**: Native Rust CLI for power users
 
-![Screenshot placeholder](#)
+| Layer | Stack |
+|-------|-------|
+| **Backend** | Rust, Axum, SQLite — core API, financial calculations, data processing |
+| **Mobile** | Kotlin Multiplatform — shared code for Android & iOS |
+| **Web** | Browser interface for financial data |
+| **CLI** | Native Rust tool for power users |
+
+### Features
+
+- Manual transaction tracking and categorization
+- Reports and analytics dashboard
+- Open Finance / Open Banking API integration
+- AI-powered insights (planned)
+- Advanced budgeting and forecasting (planned)
+- Self-hosting — minimal data collection, encryption by default
+
+### Philosophy
+
+Built on four pillars: **reliability** (production-grade code for critical financial data), **extensibility** (plugin architecture + API-first), **privacy** (self-hosting option, minimal collection), and **openness** (open standards).

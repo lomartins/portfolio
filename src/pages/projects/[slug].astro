@@ -23,7 +23,11 @@ const { Content } = await render(project);
       </a>
 
       <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
-        <span style="font-size: 48px;">{project.data.emoji}</span>
+        {project.data.image ? (
+          <img src={project.data.image} alt={`${project.data.name} logo`} style="width: 48px; height: 48px; object-fit: contain;" />
+        ) : (
+          <span style="font-size: 48px;">{project.data.emoji}</span>
+        )}
         <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: clamp(32px, 5vw, 48px); margin: 0;">
           {project.data.name}
         </h1>
@@ -80,7 +84,33 @@ const { Content } = await render(project);
     border: 1px solid var(--theme-border);
     margin: 2em 0;
   }
+  .project-content img[src*="screenshot"] {
+    max-width: 320px;
+    display: block;
+  }
   .project-content strong {
     color: var(--theme-text);
+  }
+  .project-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5em;
+    font-size: 14px;
+  }
+  .project-content th, .project-content td {
+    text-align: left;
+    padding: 10px 16px;
+    border: 1px solid var(--theme-border);
+    color: var(--theme-text-muted);
+  }
+  .project-content th {
+    background: color-mix(in srgb, var(--theme-accent) 8%, transparent);
+    color: var(--theme-text);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  .project-content tr:nth-child(even) td {
+    background: color-mix(in srgb, var(--theme-surface) 50%, transparent);
   }
 </style>
