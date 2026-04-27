@@ -3,15 +3,19 @@ name: compose-dynamic-color-imagevector
 emoji: '🎨'
 tier: B
 featured: false
-description: 'Demo: dynamic color theming + programmatic ImageVector in Jetpack Compose & Material3. 4 GitHub stars.'
-tech: ['Kotlin', 'Android', 'Compose', 'Material3']
+description: 'Build ImageVectors with dynamic colors that adapt to Material3 themes in Jetpack Compose.'
+tech: ['Kotlin', 'Android', 'Jetpack Compose', 'Material3']
 github: 'https://github.com/lomartins/compose-dynamic-color-imagevector'
 ---
 
-## Compose Dynamic Color
+## Compose Dynamic Color ImageVector
 
-A demonstration of dynamic color theming and programmatic ImageVector usage in Jetpack Compose and Material 3.
 
-### Features
-- Material 3 dynamic color palette
-- Custom programmatic ImageVectors
+Shows how to build programmatic `ImageVector`s in Jetpack Compose whose colors adapt to a Material3 dynamic color theme at runtime.
+
+
+![Demo](https://raw.githubusercontent.com/lomartins/compose-dynamic-color-imagevector/master/images/demo.gif)
+
+Instead of using static XML drawables, each path is constructed via `ImageVector.Builder` with explicit color parameters — making it trivial to swap colors from `MaterialTheme.colorScheme` or any runtime source.
+
+Key pattern: a `makeIcon()` function accepts `backgroundColor`, `primaryColor`, and `secondaryColor` as arguments (defaulting to theme colors when used as a `@Composable`), then builds the vector on-the-fly using `addPath` + `SolidColor`.
