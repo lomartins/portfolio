@@ -1,0 +1,195 @@
+<div id="twk-panel" class="twk-panel" style="display: none;">
+  <div class="twk-hd" id="twk-hd">
+    <b>Tweaks</b>
+    <button class="twk-x" id="twk-x" aria-label="Close tweaks">✕</button>
+  </div>
+  <div class="twk-body">
+    <div class="twk-sect">Visual Theme</div>
+    <div class="twk-row">
+      <div class="twk-lbl"><span>Style</span></div>
+      <div class="twk-seg" id="twk-theme-seg">
+         <div class="twk-seg-thumb" id="twk-theme-thumb"></div>
+         <button data-val="vaporwave">Vaporwave</button>
+         <button data-val="terminal">Terminal</button>
+         <button data-val="portal">Portal</button>
+      </div>
+    </div>
+    
+    <div class="twk-sect">Personality</div>
+    <div class="twk-row twk-row-h">
+      <div class="twk-lbl"><span>Show Blåhaj 🦈</span></div>
+      <button class="twk-toggle" id="twk-blaahaj-toggle" data-on="0"><i></i></button>
+    </div>
+
+    <div class="twk-sect">Hero</div>
+    <div class="twk-row">
+      <div class="twk-lbl"><span>Right column</span></div>
+      <div class="twk-seg" id="twk-hero-seg">
+         <div class="twk-seg-thumb" id="twk-hero-thumb"></div>
+         <button data-val="split">Shark</button>
+         <button data-val="terminal">Terminal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+</style>
+
+<script>
+  const panel = document.getElementById('twk-panel');
+  const hd = document.getElementById('twk-hd');
+  const closeBtn = document.getElementById('twk-x');
+
+  const tweaks = {
+    theme: 'vaporwave',
+    showBlaahaj: false,
+    heroLayout: 'terminal'
+  };
+
+  function applyTweaks(updates) {
+    Object.assign(tweaks, updates);
+    document.documentElement.setAttribute('data-theme', tweaks.theme);
+    document.documentElement.setAttribute('data-hero', tweaks.heroLayout);
+    document.documentElement.setAttribute('data-blaahaj', tweaks.showBlaahaj ? 'true' : 'false');
+    
+    updateSeg('twk-theme-seg', 'twk-theme-thumb', tweaks.theme);
+    updateSeg('twk-hero-seg', 'twk-hero-thumb', tweaks.heroLayout);
+    document.getElementById('twk-blaahaj-toggle').setAttribute('data-on', tweaks.showBlaahaj ? '1' : '0');
+
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: updates }, '*');
+  }
+
+  function setupSeg(id, onChange) {
+    const container = document.getElementById(id);
+    if (!container) return;
+    const btns = container.querySelectorAll('button');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        onChange(btn.getAttribute('data-val'));
+      });
+    });
+  }
+
+  function updateSeg(id, thumbId, val) {
+    const container = document.getElementById(id);
+    const thumb = document.getElementById(thumbId);
+    if (!container || !thumb) return;
+    const btn = container.querySelector(`button[data-val="${val}"]`);
+    if (btn) {
+      thumb.style.left = btn.offsetLeft + 'px';
+      thumb.style.width = btn.offsetWidth + 'px';
+    }
+  }
+
+  applyTweaks({});
+
+  setupSeg('twk-theme-seg', val => applyTweaks({ theme: val }));
+  setupSeg('twk-hero-seg', val => applyTweaks({ heroLayout: val, showBlaahaj: val === 'split' }));
+
+  document.getElementById('twk-blaahaj-toggle').addEventListener('click', e => {
+    const on = e.currentTarget.getAttribute('data-on') === '1';
+    applyTweaks({ showBlaahaj: !on });
+  });
+
+  let open = false;
+  window.addEventListener('message', e => {
+    const t = e?.data?.type;
+    if (t === '__activate_edit_mode') { open = true; panel.style.display = 'flex'; setTimeout(clamp, 50); }
+    else if (t === '__deactivate_edit_mode') { open = false; panel.style.display = 'none'; }
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+  
+  // For local development
+  open = true; panel.style.display = 'flex';
+
+  closeBtn.addEventListener('click', () => {
+    open = false;
+    panel.style.display = 'none';
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  });
+
+  let offset = { x: 16, y: 16 };
+  
+  function clamp() {
+    if (!open) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(16, window.innerWidth - w - 16);
+    const maxBottom = Math.max(16, window.innerHeight - h - 16);
+    offset.x = Math.min(maxRight, Math.max(16, offset.x));
+    offset.y = Math.min(maxBottom, Math.max(16, offset.y));
+    panel.style.right = offset.x + 'px';
+    panel.style.bottom = offset.y + 'px';
+    
+    updateSeg('twk-theme-seg', 'twk-theme-thumb', tweaks.theme);
+    updateSeg('twk-hero-seg', 'twk-hero-thumb', tweaks.heroLayout);
+  }
+
+  window.addEventListener('resize', clamp);
+
+  hd.addEventListener('mousedown', e => {
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    
+    const move = ev => {
+      offset.x = startRight - (ev.clientX - sx);
+      offset.y = startBottom - (ev.clientY - sy);
+      clamp();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  });
+  
+  setTimeout(clamp, 100);
+</script>
