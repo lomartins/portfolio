@@ -44,17 +44,10 @@ const BLOG_POSTS = [
     tags: ['Rust', 'owo', 'Side Projects'] },
 ];
 
-const EXPERIENCE = [
-  { period: '2022 – Present', role: 'Senior Mobile Engineer',
-    company: 'Scale-up · Android / KMP Platform',
-    description: 'Platform infrastructure, observability tooling, and cross-platform migration. Led crash monitoring rollout and KMP module migrations at scale.' },
-  { period: '2020 – 2022', role: 'Android Developer',
-    company: 'Fintech · Consumer Mobile',
-    description: 'Feature development across the Android app. Release management, internal tooling, and architecture uplift initiatives.' },
-  { period: '2019 – 2020', role: 'Junior Android Developer',
-    company: 'Agency · Android & Mobile',
-    description: 'Shipped mobile products for clients across verticals. Learned the ropes of professional Android development.' },
-];
+const careerEntries = await getCollection('career');
+const career = careerEntries[0].data;
+const EXPERIENCE = career.entries;
+const CV_URL = career.cv_url;
 
 const ALL_FILTERS = ['All', 'Kotlin', 'Android', 'KMP', 'Compose', 'Rust'];
 const skills = profile.stack;
@@ -304,7 +297,7 @@ function getTechColor(label: string) {
           <div class="section-num">05 / Experience</div>
           <h2 class="section-title">Career</h2>
         </div>
-        <a href="#" class="btn-download">↓ Download CV</a>
+        <a href={CV_URL} class="btn-download" {...CV_URL !== '#' ? { download: true, target: '_blank', rel: 'noopener noreferrer' } : {}}>↓ Download CV</a>
       </div>
       
       <div class="timeline-wrap">

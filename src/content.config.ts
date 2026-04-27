@@ -17,7 +17,7 @@ const projectsCollection = defineCollection({
 });
 
 const profileCollection = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/profile" }),
+  loader: glob({ pattern: "index.md", base: "./src/content/profile" }),
   schema: z.object({
     name: z.string(),
     hero_title: z.string(),
@@ -32,7 +32,21 @@ const profileCollection = defineCollection({
   }),
 });
 
+const careerCollection = defineCollection({
+  loader: glob({ pattern: "career.md", base: "./src/content/profile" }),
+  schema: z.object({
+    cv_url: z.string(),
+    entries: z.array(z.object({
+      period: z.string(),
+      role: z.string(),
+      company: z.string(),
+      description: z.string(),
+    })),
+  }),
+});
+
 export const collections = {
   projects: projectsCollection,
   profile: profileCollection,
+  career: careerCollection,
 };

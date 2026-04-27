@@ -1,0 +1,16 @@
+---
+cv_url: "resume.pdf"
+entries:
+  - period: "May 2025 – Apr 2026"
+    role: "Kotlin Mobile Developer"
+    company: "iFood · Platform & Observability"
+    description: "Platform team for iFood's Driver App serving millions of active couriers. Led end-to-end Sentry crash/performance monitoring rollout, drove KMP migrations of core modules (force update, remote config, data persistence), and built internal codebase observability tooling. Acted as Release Manager across multiple release cycles."
+  - period: "Nov 2020 – May 2025"
+    role: "Android Developer"
+    company: "Stone · FinTech (Intern → Senior, 4 yrs 5 mos)"
+    description: "Progressed from intern to senior at Stone's POS platform. Scaled a product from 50k to 500k+ active users, led Jetpack Compose adoption and white-label solution, migrated database to Room KMP for Android/iOS, built CI/CD pipelines with Gradle and Azure Pipelines, and managed a portfolio of 7+ apps/libraries."
+  - period: "May 2019 – Nov 2020"
+    role: "Tax Process Analyst"
+    company: "Invepar · Finance"
+    description: "Automated fiscal processes using Python (desktop and web scraping), reducing execution time by over 80%."
+---
