@@ -5,7 +5,7 @@ tier: A
 featured: true
 description: 'Android bill splitter and tip calculator. Flutter + BLoC, real-time per-person breakdown, flexible tip percentages. v1.0.0 production release, Android 5.0+.'
 tech: ['Flutter', 'Dart', 'BLoC', 'Kotlin', 'Android']
-github: '#'
+github: 'https://github.com/lomartins/tip-splitter'
 ---
 
 ## Tip Splitter
