@@ -1,46 +1,60 @@
-# Astro Starter Kit: Basics
+# luisamartins.dev
 
-```sh
-npm create astro@latest -- --template basics
+Personal portfolio built with [Astro](https://astro.build). Live at **[luisamartins.dev](https://luisamartins.dev)**.
+
+## Stack
+
+- [Astro](https://astro.build) — static site generator
+- TypeScript
+- Astro Content Collections — Markdown-driven content
+
+## Project Structure
+
+```
+src/
+├── assets/          # SVGs and static assets
+├── components/      # Shared Astro components
+├── content/
+│   ├── profile/     # Profile data (index.md)
+│   └── projects/    # One .md file per project
+├── layouts/         # Base layout
+└── pages/
+    ├── index.astro          # Main single-page site
+    └── projects/[slug].astro # Project detail pages
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command           | Action                                |
+| :---------------- | :------------------------------------ |
+| `npm install`     | Install dependencies                  |
+| `npm run dev`     | Dev server at `localhost:4321`        |
+| `npm run build`   | Build to `./dist/`                    |
+| `npm run preview` | Preview production build locally      |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Adding a Project
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+Create `src/content/projects/<slug>.md`:
+
+```md
+---
+name: Project Name
+emoji: 🚀           # optional — shown if no image
+image: /path.png    # optional
+tier: S             # S | A | B | C (controls sort order)
+featured: true
+description: Short description shown on the card.
+tech:
+  - Kotlin
+  - Android
+github: https://github.com/lomartins/repo
+---
+
+Full project write-up in Markdown goes here.
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Tiers sort as S → A → B → C. Projects are filtered on the index page by tech tag.
 
-## 🧞 Commands
+## Updating Profile
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Edit `src/content/profile/index.md` — all hero text, about section copy, status line, and stack badges are driven from this file.
