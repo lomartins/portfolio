@@ -16,6 +16,16 @@ const projectsCollection = defineCollection({
   }),
 });
 
+const blogCollection = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    description: z.string(),
+    tags: z.array(z.string()),
+  }),
+});
+  
 const profileCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "./src/content/profile" }),
   schema: z.object({
@@ -49,6 +59,7 @@ const careerCollection = defineCollection({
 
 export const collections = {
   projects: projectsCollection,
+  blog: blogCollection,
   profile: profileCollection,
   career: careerCollection,
 };
