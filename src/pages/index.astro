@@ -517,11 +517,12 @@ function getTechColor(label: string) {
 
 <script>
   // Navbar scroll effect
-  const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
     if (window.scrollY > 40) {
       navbar?.classList.add('scrolled');
     } else {
+      // log
       navbar?.classList.remove('scrolled');
     }
   });
