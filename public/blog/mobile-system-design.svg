@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Mobile System Design Interview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0f1a"/>
+      <stop offset="100%" stop-color="#11192b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7cf9c6" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#7cf9c6" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#7cf9c6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="phoneFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1b2236"/>
+      <stop offset="100%" stop-color="#0e1422"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1f1a"/>
+      <stop offset="100%" stop-color="#082019"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#1f2a44" stroke-width="1"/>
+    </pattern>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <style>
+      .accent { stroke: #7cf9c6; }
+      .muted  { stroke: #2c3a5c; }
+      .label  { font-family: 'Space Mono', ui-monospace, monospace; font-size: 14px; fill: #cfe9d8; letter-spacing: 0.12em; }
+      .title  { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+      .accent-fill { fill: #7cf9c6; }
+      .dim-fill    { fill: #8aa0c8; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect width="1280" height="720" fill="url(#grid)" opacity="0.55"/>
+  <rect x="20" y="20" width="1240" height="680" fill="none" stroke="#243352" stroke-width="1" stroke-dasharray="4 6" rx="6"/>
+
+  <!-- ambient glow -->
+  <circle cx="640" cy="400" r="260" fill="url(#glow)"/>
+
+  <!-- title -->
+  <g transform="translate(640 92)" text-anchor="middle">
+    <text class="title" font-size="22" fill="#7cf9c6" letter-spacing="0.32em">// SYSTEM DESIGN INTERVIEW</text>
+    <text class="title" y="60" font-size="64" fill="#f4fbf7">MOBILE SYSTEM DESIGN</text>
+    <line x1="-180" y1="80" x2="180" y2="80" stroke="#7cf9c6" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- orbital rings -->
+  <g fill="none" stroke-dasharray="2 6" opacity="0.5">
+    <ellipse cx="640" cy="430" rx="430" ry="170" class="muted"/>
+    <ellipse cx="640" cy="430" rx="320" ry="120" class="muted"/>
+  </g>
+
+  <!-- connectors (drawn before nodes so nodes sit on top) -->
+  <g fill="none" stroke="#7cf9c6" stroke-width="1.6" opacity="0.85">
+    <path d="M 640 430 C 540 430 460 320 230 280"/>
+    <path d="M 640 430 C 540 430 460 430 220 430"/>
+    <path d="M 640 430 C 540 430 460 540 230 580"/>
+    <path d="M 640 430 C 740 430 820 320 1050 280"/>
+    <path d="M 640 430 C 740 430 820 430 1060 430"/>
+    <path d="M 640 430 C 740 430 820 540 1050 580"/>
+  </g>
+
+  <!-- packet pulses on connectors -->
+  <g class="accent-fill">
+    <circle r="3.5" cx="430" cy="334"/>
+    <circle r="3.5" cx="420" cy="430"/>
+    <circle r="3.5" cx="430" cy="526"/>
+    <circle r="3.5" cx="850" cy="334"/>
+    <circle r="3.5" cx="860" cy="430"/>
+    <circle r="3.5" cx="850" cy="526"/>
+  </g>
+
+  <!-- phone (center) -->
+  <g transform="translate(640 430)">
+    <rect x="-90" y="-150" width="180" height="300" rx="22" fill="url(#phoneFill)" stroke="#7cf9c6" stroke-width="2"/>
+    <rect x="-78" y="-138" width="156" height="276" rx="14" fill="url(#screen)" stroke="#1c5544" stroke-width="1"/>
+    <!-- notch -->
+    <rect x="-26" y="-145" width="52" height="8" rx="4" fill="#0a0f1a"/>
+    <!-- speaker -->
+    <rect x="-12" y="-143" width="24" height="3" rx="1.5" fill="#1f2a44"/>
+    <!-- screen UI: status bar -->
+    <g class="dim-fill" font-family="Space Mono, monospace" font-size="8">
+      <text x="-66" y="-118">9:41</text>
+      <circle cx="60" cy="-122" r="2"/>
+      <circle cx="68" cy="-122" r="2"/>
+    </g>
+    <!-- screen UI: stacked rows -->
+    <g>
+      <rect x="-64" y="-104" width="128" height="22" rx="4" fill="#0f3326" stroke="#1f6b50"/>
+      <rect x="-58" y="-99" width="60" height="3" rx="1.5" class="accent-fill"/>
+      <rect x="-58" y="-92" width="84" height="3" rx="1.5" fill="#1f6b50"/>
+
+      <rect x="-64" y="-72" width="128" height="44" rx="6" fill="#0c2a20" stroke="#184a39"/>
+      <rect x="-58" y="-66" width="40" height="4" rx="2" class="accent-fill"/>
+      <rect x="-58" y="-58" width="100" height="3" rx="1.5" fill="#184a39"/>
+      <rect x="-58" y="-51" width="80" height="3" rx="1.5" fill="#184a39"/>
+      <rect x="-58" y="-44" width="64" height="3" rx="1.5" fill="#184a39"/>
+
+      <rect x="-64" y="-18" width="60" height="44" rx="6" fill="#0c2a20" stroke="#184a39"/>
+      <rect x="4"   y="-18" width="60" height="44" rx="6" fill="#0c2a20" stroke="#184a39"/>
+
+      <rect x="-64" y="36" width="128" height="6" rx="3" fill="#1f6b50"/>
+      <rect x="-64" y="36" width="78" height="6" rx="3" class="accent-fill"/>
+
+      <rect x="-64" y="52" width="128" height="58" rx="6" fill="#0c2a20" stroke="#184a39"/>
+      <path d="M -56 102 L -36 86 L -16 94 L 4 78 L 24 88 L 44 72 L 56 80" fill="none" stroke="#7cf9c6" stroke-width="1.6"/>
+    </g>
+    <!-- home indicator -->
+    <rect x="-22" y="128" width="44" height="3" rx="1.5" fill="#2c3a5c"/>
+  </g>
+
+  <!-- node helper template via groups -->
+  <!-- LEFT TOP: API GATEWAY -->
+  <g transform="translate(150 280)">
+    <rect x="-70" y="-40" width="140" height="80" rx="14" fill="#11192b" stroke="#7cf9c6" stroke-width="1.6"/>
+    <g transform="translate(0 -8)" stroke="#7cf9c6" stroke-width="2" fill="none">
+      <path d="M -16 0 L -8 -8 L 0 0 L 8 -8 L 16 0"/>
+      <path d="M -16 6 L -8 -2 L 0 6 L 8 -2 L 16 6"/>
+    </g>
+    <text class="label" text-anchor="middle" y="26">API GATEWAY</text>
+  </g>
+
+  <!-- LEFT MID: AUTH -->
+  <g transform="translate(140 430)">
+    <rect x="-70" y="-40" width="140" height="80" rx="14" fill="#11192b" stroke="#7cf9c6" stroke-width="1.6"/>
+    <g transform="translate(0 -6)" fill="none" stroke="#7cf9c6" stroke-width="2">
+      <path d="M -10 -8 a10 10 0 0 1 20 0 v8 h-20 z"/>
+      <rect x="-14" y="0" width="28" height="18" rx="2"/>
+      <circle cx="0" cy="9" r="2.5" fill="#7cf9c6" stroke="none"/>
+    </g>
+    <text class="label" text-anchor="middle" y="26">AUTH</text>
+  </g>
+
+  <!-- LEFT BOTTOM: DATABASE -->
+  <g transform="translate(150 580)">
+    <rect x="-70" y="-40" width="140" height="80" rx="14" fill="#11192b" stroke="#7cf9c6" stroke-width="1.6"/>
+    <g transform="translate(0 -8)" fill="none" stroke="#7cf9c6" stroke-width="2">
+      <ellipse cx="0" cy="-8" rx="18" ry="5"/>
+      <path d="M -18 -8 V 4 a18 5 0 0 0 36 0 V -8"/>
+      <path d="M -18 -2 a18 5 0 0 0 36 0"/>
+    </g>
+    <text class="label" text-anchor="middle" y="26">DATABASE</text>
+  </g>
+
+  <!-- RIGHT TOP: USERS -->
+  <g transform="translate(1130 280)">
+    <rect x="-70" y="-40" width="140" height="80" rx="14" fill="#11192b" stroke="#7cf9c6" stroke-width="1.6"/>
+    <g transform="translate(0 -6)" fill="none" stroke="#7cf9c6" stroke-width="2">
+      <circle cx="-9" cy="-8" r="5"/>
+      <circle cx="9"  cy="-8" r="5"/>
+      <path d="M -20 8 a11 8 0 0 1 22 0"/>
+      <path d="M -2 8 a11 8 0 0 1 22 0"/>
+    </g>
+    <text class="label" text-anchor="middle" y="26">USERS</text>
+  </g>
+
+  <!-- RIGHT MID: CACHE / CDN -->
+  <g transform="translate(1140 430)">
+    <rect x="-70" y="-40" width="140" height="80" rx="14" fill="#11192b" stroke="#7cf9c6" stroke-width="1.6"/>
+    <g transform="translate(0 -6)" fill="none" stroke="#7cf9c6" stroke-width="2">
+      <path d="M -16 4 a10 10 0 0 1 4 -19 a12 12 0 0 1 22 4 a8 8 0 0 1 0 15 z"/>
+      <path d="M -8 -4 L 8 -4 M -8 1 L 8 1"/>
+    </g>
+    <text class="label" text-anchor="middle" y="26">CACHE / CDN</text>
+  </g>
+
+  <!-- RIGHT BOTTOM: OBSERVABILITY -->
+  <g transform="translate(1130 580)">
+    <rect x="-70" y="-40" width="140" height="80" rx="14" fill="#11192b" stroke="#7cf9c6" stroke-width="1.6"/>
+    <g transform="translate(0 -6)" fill="none" stroke="#7cf9c6" stroke-width="2">
+      <path d="M -18 6 L -8 -4 L 0 4 L 8 -8 L 18 2"/>
+      <path d="M -18 10 H 18"/>
+    </g>
+    <text class="label" text-anchor="middle" y="26">OBSERVABILITY</text>
+  </g>
+
+  <!-- corner markers -->
+  <g stroke="#7cf9c6" stroke-width="2" fill="none" opacity="0.85">
+    <path d="M 36 36 H 64 M 36 36 V 64"/>
+    <path d="M 1244 36 H 1216 M 1244 36 V 64"/>
+    <path d="M 36 684 H 64 M 36 684 V 656"/>
+    <path d="M 1244 684 H 1216 M 1244 684 V 656"/>
+  </g>
+
+  <!-- footer tag -->
+  <g transform="translate(640 660)" text-anchor="middle">
+    <text class="label" fill="#8aa0c8">[ ANDROID · iOS · SCALE · TRADE-OFFS ]</text>
+  </g>
+</svg>
