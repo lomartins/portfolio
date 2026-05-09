@@ -38,7 +38,8 @@ const fmtDate = (d: Date) =>
               <span class="toc-mobile-label">sections</span>
             </button>
             <div id="toc-mobile-menu" class="toc-mobile-menu" role="menu">
-              <ol class="toc-list">
+              <ol class="toc-list" data-toc-list>
+                <span class="toc-indicator" data-toc-indicator aria-hidden="true"></span>
                 {toc.map(h => (
                   <li class={`toc-item depth-${h.depth}`}>
                     <a href={`#${h.slug}`} data-toc-link={h.slug} class="toc-link">{h.text}</a>
@@ -65,7 +66,8 @@ const fmtDate = (d: Date) =>
     {toc.length > 0 && (
       <aside class="toc-floating" aria-label="Table of contents">
         <div class="toc-title">on this page</div>
-        <ol class="toc-list">
+        <ol class="toc-list" data-toc-list>
+          <span class="toc-indicator" data-toc-indicator aria-hidden="true"></span>
           {toc.map(h => (
             <li class={`toc-item depth-${h.depth}`}>
               <a href={`#${h.slug}`} data-toc-link={h.slug} class="toc-link">{h.text}</a>
@@ -199,7 +201,8 @@ const fmtDate = (d: Date) =>
     text-transform: uppercase;
     margin-bottom: 10px;
   }
-  .toc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+  .toc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; position: relative; }
+  .toc-item { position: relative; z-index: 1; }
   .toc-item.depth-3 { padding-left: 14px; }
   .toc-link {
     display: block;
@@ -209,16 +212,31 @@ const fmtDate = (d: Date) =>
     color: var(--theme-text-muted);
     text-decoration: none;
     padding: 5px 8px;
-    border-left: 2px solid transparent;
     border-radius: 4px;
-    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    transform: translateX(0);
+    transition: color 0.25s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1);
   }
-  .toc-link:hover { color: var(--theme-text); }
-  .toc-link.active {
-    color: var(--theme-accent);
-    border-left-color: var(--theme-accent);
+  .toc-link:hover { color: var(--theme-text); transform: translateX(2px); }
+  .toc-link.active { color: var(--theme-accent); }
+  .toc-indicator {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 0;
     background: color-mix(in srgb, var(--theme-accent) 10%, transparent);
+    border-left: 2px solid var(--theme-accent);
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    transition:
+      transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.25s ease;
+    will-change: transform, height;
   }
+  .toc-indicator.visible { opacity: 1; }
 
   /* === TOC mobile (in topbar) === */
   .toc-mobile-wrap { display: none; position: relative; }
@@ -291,9 +309,34 @@ const fmtDate = (d: Date) =>
       .map(s => document.getElementById(s))
       .filter((el): el is HTMLElement => !!el);
 
-    const setActive = (slug: string) => {
-      tocLinks.forEach(a => a.classList.toggle('active', a.dataset.tocLink === slug));
+    const indicators = Array.from(document.querySelectorAll<HTMLElement>('[data-toc-indicator]'));
+
+    const moveIndicator = (link: HTMLAnchorElement) => {
+      const list = link.closest<HTMLElement>('[data-toc-list]');
+      if (!list) return;
+      const indicator = list.querySelector<HTMLElement>('[data-toc-indicator]');
+      if (!indicator) return;
+      const item = link.parentElement as HTMLElement | null;
+      if (!item) return;
+      const top = item.offsetTop;
+      const h = item.offsetHeight;
+      indicator.style.transform = `translate3d(0, ${top}px, 0)`;
+      indicator.style.height = `${h}px`;
+      indicator.classList.add('visible');
     };
+
+    const setActive = (slug: string) => {
+      tocLinks.forEach(a => {
+        const on = a.dataset.tocLink === slug;
+        a.classList.toggle('active', on);
+        if (on) moveIndicator(a);
+      });
+    };
+
+    window.addEventListener('resize', () => {
+      const active = tocLinks.find(a => a.classList.contains('active'));
+      if (active) moveIndicator(active);
+    });
 
     let activeSlug = '';
     const visible = new Map<string, number>();
