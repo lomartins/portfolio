@@ -1,14 +1,14 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ProjectDetail from '../../components/ProjectDetail.astro';
+import Layout from '../../../layouts/Layout.astro';
+import ProjectDetail from '../../../components/ProjectDetail.astro';
 import { getCollection } from 'astro:content';
 
-const LANG = 'en' as const;
+const LANG = 'pt-br' as const;
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects', (p) => p.id.startsWith('en/'));
+  const projects = await getCollection('projects', (p) => p.id.startsWith('pt-br/'));
   return projects.map(project => ({
-    params: { slug: project.id.replace(/^en\//, '') },
+    params: { slug: project.id.replace(/^pt-br\//, '') },
     props: { project },
   }));
 }

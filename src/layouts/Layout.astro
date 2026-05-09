@@ -1,14 +1,17 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import { localeMeta, defaultLocale, type Locale } from '../i18n';
 
 interface Props {
 	title: string;
+	lang?: Locale;
 }
-const { title } = Astro.props;
+const { title, lang = defaultLocale } = Astro.props;
+const htmlLang = localeMeta[lang].htmlLang;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="vaporwave">
+<html lang={htmlLang} data-theme="vaporwave">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -255,6 +258,8 @@ const { title } = Astro.props;
 		buttons.forEach(b => b.setAttribute('data-active', String(b.dataset.theme === current)));
 
 		buttons.forEach(btn => {
+			if (btn.dataset.bound === '1') return;
+			btn.dataset.bound = '1';
 			btn.addEventListener('click', e => {
 				const theme = btn.dataset.theme!;
 				const rect = btn.getBoundingClientRect();

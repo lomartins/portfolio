@@ -1,0 +1,62 @@
+---
+import { useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  lang: Locale;
+  /** When false, the badge is not rendered. Wired to the content's `ai_translated` frontmatter. */
+  show: boolean;
+}
+
+const { lang, show } = Astro.props;
+if (!show) return null;
+const t = useTranslations(lang);
+---
+
+<div class="ai-translated-chip" role="note" aria-label={t('banner.ai_translated')}>
+  <span class="ai-icon" aria-hidden="true">🤖</span>
+  <span class="ai-label">{t('banner.ai_translated')}</span>
+  <span class="ai-hint">{t('banner.ai_translated_hint')}</span>
+</div>
+
+<style>
+  .ai-translated-chip {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--theme-accent-alt) 18%, var(--theme-surface));
+    border: 1px solid color-mix(in srgb, var(--theme-accent-alt) 50%, transparent);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.32), var(--theme-glow);
+    backdrop-filter: blur(14px);
+    color: var(--theme-text);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    max-width: calc(100% - 32px);
+  }
+  .ai-icon { font-size: 14px; line-height: 1; }
+  .ai-label {
+    color: var(--theme-accent-alt);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .ai-hint { opacity: 0.85; }
+
+  @media (max-width: 720px) {
+    .ai-translated-chip {
+      bottom: 12px;
+      padding: 8px 12px;
+      font-size: 10px;
+      gap: 6px;
+    }
+    .ai-hint { display: none; }
+  }
+</style>

@@ -1,6 +1,13 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+// All content collections are organized per-locale: <collection>/<locale>/<file>.md
+// `ai_translated` defaults to false; set to `true` on AI-generated translations
+// so the "AI Translated / Traduzido por AI" badge shows. Flip to false (or remove)
+// after a human review.
+
+const aiTranslated = z.boolean().default(false);
+
 const projectsCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
   schema: z.object({
@@ -13,6 +20,7 @@ const projectsCollection = defineCollection({
     description: z.string(),
     tech: z.array(z.string()),
     github: z.string(),
+    ai_translated: aiTranslated,
   }),
 });
 
@@ -25,11 +33,12 @@ const blogCollection = defineCollection({
     date: z.date(),
     author: z.string().default('Luisa Martins'),
     description: z.string().optional(),
+    ai_translated: aiTranslated,
   }),
 });
-  
+
 const profileCollection = defineCollection({
-  loader: glob({ pattern: "index.md", base: "./src/content/profile" }),
+  loader: glob({ pattern: "*/index.md", base: "./src/content/profile" }),
   schema: z.object({
     name: z.string(),
     avatar: z.string().optional(),
@@ -42,13 +51,15 @@ const profileCollection = defineCollection({
     about_paragraph_2: z.string(),
     about_status: z.string(),
     stack: z.array(z.string()),
+    ai_translated: aiTranslated,
   }),
 });
 
 const careerCollection = defineCollection({
-  loader: glob({ pattern: "career.md", base: "./src/content/profile" }),
+  loader: glob({ pattern: "*/career.md", base: "./src/content/profile" }),
   schema: z.object({
     cv_url: z.string(),
+    ai_translated: aiTranslated,
     entries: z.array(z.object({
       period: z.string(),
       role: z.string(),

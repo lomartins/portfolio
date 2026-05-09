@@ -1,14 +1,14 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import BlogPost from '../../components/BlogPost.astro';
+import Layout from '../../../layouts/Layout.astro';
+import BlogPost from '../../../components/BlogPost.astro';
 import { getCollection } from 'astro:content';
 
-const LANG = 'en' as const;
+const LANG = 'pt-br' as const;
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', (p) => p.id.startsWith('en/'));
+  const posts = await getCollection('blog', (p) => p.id.startsWith('pt-br/'));
   return posts.map(post => ({
-    params: { id: post.id.replace(/^en\//, '') },
+    params: { id: post.id.replace(/^pt-br\//, '') },
     props: { post },
   }));
 }

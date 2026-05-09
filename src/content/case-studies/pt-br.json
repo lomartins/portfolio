@@ -1,0 +1,27 @@
+{
+  "ai_translated": true,
+  "items": [
+    {
+      "category": "Infraestrutura · Observabilidade",
+      "title": "Rollout de crash monitoring em escala",
+      "summary": "Iniciativa end-to-end para instrumentar, implantar e impulsionar a adoção de monitoramento de crashes em um app mobile que atende milhões de usuários ativos.",
+      "tech": ["Kotlin", "Android", "Observability"],
+      "sections": [
+        { "title": "Contexto",  "content": "O app não tinha visibilidade centralizada de crashes. As pessoas engenheiras voavam às cegas pós-release, dependendo de reports de usuários para pegar regressões." },
+        { "title": "Abordagem", "content": "Desenhei a estratégia de integração do SDK, escrevi documentação interna de adoção, coordenei com os times de plataforma e observabilidade e rodei o rollout em fases para minimizar o blast radius." },
+        { "title": "Resultado", "content": "Crash monitoring no ar em 100% da superfície Android. Tempo médio de detecção caiu significativamente. Virou a implementação de referência canônica para tooling de observabilidade futuro." }
+      ]
+    },
+    {
+      "category": "Arquitetura · KMP",
+      "title": "Migração de módulos para Kotlin Multiplatform",
+      "summary": "Liderei a migração de vários módulos de lógica de negócio de Kotlin específico de Android para KMP, viabilizando compartilhamento de código com o time iOS.",
+      "tech": ["Kotlin", "KMP", "Android", "Architecture"],
+      "sections": [
+        { "title": "Desafio",  "content": "Os módulos tinham dependências específicas de Android embutidas, a cobertura de testes era irregular e o time iOS mantinha uma implementação paralela que vinha divergindo." },
+        { "title": "Execução", "content": "Priorizei módulos por blast radius e acoplamento. Reescrevi um módulo por vez usando expect/actual, adicionei testes unitários compartilhados e documentei cada migração como um padrão repetível." },
+        { "title": "Resultado","content": "Vários módulos centrais agora compartilhados entre plataformas. Reduziu duplicação de código e eliminou o drift entre as implementações Android e iOS." }
+      ]
+    }
+  ]
+}

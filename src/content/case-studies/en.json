@@ -1,0 +1,27 @@
+{
+  "ai_translated": false,
+  "items": [
+    {
+      "category": "Infrastructure · Observability",
+      "title": "Rolling out crash monitoring at scale",
+      "summary": "End-to-end initiative to instrument, deploy, and drive adoption of crash monitoring across a mobile app serving millions of active users.",
+      "tech": ["Kotlin", "Android", "Observability"],
+      "sections": [
+        { "title": "Context",  "content": "The app had no centralized crash visibility. Engineers were flying blind post-release, relying on user reports to catch regressions." },
+        { "title": "Approach", "content": "Designed the SDK integration strategy, wrote internal adoption docs, coordinated with platform and observability teams, and ran the rollout in phases to minimize blast radius." },
+        { "title": "Outcome",  "content": "Crash monitoring live across 100% of Android surface area. Mean time to detection dropped significantly. Became the canonical reference implementation for future observability tooling." }
+      ]
+    },
+    {
+      "category": "Architecture · KMP",
+      "title": "Kotlin Multiplatform module migration",
+      "summary": "Led migration of several business-logic modules from Android-specific Kotlin to KMP, enabling code sharing with the iOS team.",
+      "tech": ["Kotlin", "KMP", "Android", "Architecture"],
+      "sections": [
+        { "title": "Challenge", "content": "Modules had Android-specific dependencies baked in, test coverage was spotty, and the iOS team had a parallel implementation with drift." },
+        { "title": "Execution", "content": "Prioritized modules by blast radius and coupling. Rewrote one module at a time using expect/actual, added shared unit tests, and documented each migration as a repeatable pattern." },
+        { "title": "Result",    "content": "Several core modules now shared across platforms. Reduced code duplication and eliminated sync drift between Android and iOS implementations." }
+      ]
+    }
+  ]
+}

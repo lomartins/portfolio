@@ -1,0 +1,147 @@
+---
+import { useTranslations, type Locale } from '../i18n';
+import LanguagePicker from './LanguagePicker.astro';
+
+interface Props {
+  lang: Locale;
+  pathname: string;
+  /** When true, navbar starts with scrolled (opaque) styling — used on inner pages. */
+  startScrolled?: boolean;
+  /** Which top-level section is active (matches keys without `nav.` prefix) */
+  active?: 'about' | 'projects' | 'blog' | 'resume' | 'contact';
+  /** Path prefix for in-page anchors (so PT pages link back to `/pt-br/#projects`) */
+  homeBase: string;
+  /** Path to the blog index for the current locale */
+  blogPath: string;
+}
+
+const { lang, pathname, startScrolled = false, active, homeBase, blogPath } = Astro.props;
+const t = useTranslations(lang);
+
+const navItems = [
+  { key: 'about', label: t('nav.about'), href: `${homeBase}#about` },
+  { key: 'projects', label: t('nav.projects'), href: `${homeBase}#projects` },
+  { key: 'blog', label: t('nav.blog'), href: blogPath },
+  { key: 'resume', label: t('nav.resume'), href: `${homeBase}#resume` },
+  { key: 'contact', label: t('nav.contact'), href: `${homeBase}#contact` },
+] as const;
+---
+
+<nav id="navbar" class={`navbar${startScrolled ? ' scrolled' : ''}`}>
+  <div class="nav-gradient"></div>
+  <div class="nav-content">
+    <a href={homeBase} class="nav-logo">luisamartins.dev</a>
+    <div class="nav-links" id="nav-links">
+      {navItems.map(item => (
+        <a
+          href={item.href}
+          class={`nav-link${active === item.key ? ' active' : ''}`}
+        >{item.label}</a>
+      ))}
+      <div class="nav-pickers nav-pickers-menu">
+        <LanguagePicker current={lang} pathname={pathname} />
+        <div class="theme-picker" aria-label={t('nav.theme_picker')}>
+          <button data-theme="vaporwave" aria-label="Vaporwave"><span class="swatch"></span></button>
+          <button data-theme="terminal" aria-label="Terminal"><span class="swatch"></span></button>
+          <button data-theme="portal" aria-label="Portal"><span class="swatch"></span></button>
+          <button data-theme="light" aria-label="Light"><span class="swatch"></span></button>
+        </div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <slot name="extra" />
+      <div class="nav-pickers nav-pickers-bar">
+        <LanguagePicker current={lang} pathname={pathname} />
+        <div class="theme-picker" aria-label={t('nav.theme_picker')}>
+          <button data-theme="vaporwave" aria-label="Vaporwave"><span class="swatch"></span></button>
+          <button data-theme="terminal" aria-label="Terminal"><span class="swatch"></span></button>
+          <button data-theme="portal" aria-label="Portal"><span class="swatch"></span></button>
+          <button data-theme="light" aria-label="Light"><span class="swatch"></span></button>
+        </div>
+      </div>
+      <button id="nav-toggle" class="nav-toggle" aria-label={t('nav.menu')}>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: all 0.4s ease; background: transparent; border-bottom: 1px solid transparent; }
+  .navbar.scrolled { background: color-mix(in srgb, var(--theme-bg) 95%, transparent); backdrop-filter: blur(16px); border-bottom-color: var(--theme-border); }
+  .nav-gradient { height: 5px; background: linear-gradient(90deg,#55CDFC 20%,#F7A8B8 20% 40%,#FFFFFF 40% 60%,#F7A8B8 60% 80%,#55CDFC 80%); }
+  .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; height: 58px; gap: 16px; }
+  .nav-logo { font-family: 'Space Mono', monospace; font-size: 15px; font-weight: 700; color: var(--theme-accent); text-decoration: none; letter-spacing: -0.02em; }
+  .nav-links { display: flex; gap: 28px; margin-left: auto; }
+  .nav-link { font-family: 'Space Mono', monospace; font-size: 11px; color: color-mix(in srgb, var(--theme-text) 72%, var(--theme-bg)); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+  .nav-link.active, .nav-link:hover { color: var(--theme-accent); }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .nav-pickers { display: flex; align-items: center; gap: 10px; }
+  .nav-pickers-menu { display: none; }
+  .nav-toggle { display: none; background: transparent; border: 1px solid var(--theme-border); border-radius: 8px; width: 36px; height: 36px; cursor: pointer; padding: 0; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+  .nav-toggle span { display: block; width: 16px; height: 2px; background: var(--theme-accent); border-radius: 1px; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav-content { padding: 0 18px; height: 54px; }
+    .nav-links {
+      position: fixed; inset: 64px 12px auto 12px; flex-direction: column; gap: 4px;
+      padding: 18px; background: color-mix(in srgb, var(--theme-bg) 96%, transparent);
+      backdrop-filter: blur(20px); border: 1px solid var(--theme-border); border-radius: 14px;
+      transform: translateY(-12px); opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease; z-index: 99;
+    }
+    .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .nav-link { padding: 10px 6px; font-size: 13px; }
+    .nav-toggle { display: inline-flex; }
+    .nav-right { margin-left: auto; gap: 6px; }
+    .nav-pickers-bar { display: none; }
+    .nav-pickers-menu {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 10px; margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--theme-border);
+    }
+    .theme-picker { padding: 3px; gap: 3px; }
+    .theme-picker button { width: 24px; height: 24px; }
+    .theme-picker button .swatch { width: 16px; height: 16px; }
+  }
+</style>
+
+<script>
+  function bindNav() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    if (!navToggle || !navLinks) return;
+    if (navToggle.dataset.bound !== '1') {
+      navToggle.dataset.bound = '1';
+      navToggle.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', String(open));
+      });
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    const navbar = document.getElementById('navbar');
+    if (navbar && navbar.dataset.scrollBound !== '1' && !navbar.classList.contains('scrolled-locked')) {
+      navbar.dataset.scrollBound = '1';
+      const onScroll = () => {
+        if (window.scrollY > 40) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+      };
+      // skip the listener on pages that start scrolled; CSS already covers them
+      if (!navbar.dataset.startScrolled) {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+    }
+  }
+  bindNav();
+  document.addEventListener('astro:page-load', bindNav);
+</script>

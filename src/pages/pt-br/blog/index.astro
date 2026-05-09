@@ -1,0 +1,12 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import BlogList from '../../../components/BlogList.astro';
+import { useTranslations } from '../../../i18n';
+
+const lang = 'pt-br' as const;
+const t = useTranslations(lang);
+---
+
+<Layout title={t('blog.page_title')} lang={lang}>
+  <BlogList lang={lang} pathname={Astro.url.pathname} />
+</Layout>

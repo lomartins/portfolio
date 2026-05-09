@@ -1,9 +1,9 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PortfolioHome from '../components/PortfolioHome.astro';
+import Layout from '../../layouts/Layout.astro';
+import PortfolioHome from '../../components/PortfolioHome.astro';
 import { getCollection } from 'astro:content';
 
-const lang = 'en' as const;
+const lang = 'pt-br' as const;
 const profile = (await getCollection('profile', (p) => p.id.startsWith(`${lang}/`) || p.id === lang))[0]!.data;
 ---
 

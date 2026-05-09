@@ -1,0 +1,76 @@
+---
+import { locales, localeMeta, localizedPath, type Locale } from '../i18n';
+
+interface Props {
+  current: Locale;
+  pathname: string;
+}
+
+const { current, pathname } = Astro.props;
+---
+
+<div class="lang-picker" aria-label="Language">
+  {locales.map((l) => {
+    const meta = localeMeta[l];
+    const href = localizedPath(pathname, l);
+    const isActive = l === current;
+    return (
+      <a
+        href={href}
+        class="lang-btn"
+        data-active={isActive}
+        aria-label={meta.name}
+        aria-current={isActive ? 'page' : undefined}
+        hreflang={meta.htmlLang}
+      >
+        <span class="lang-flag" aria-hidden="true">{meta.flag}</span>
+        <span class="lang-label">{meta.label}</span>
+      </a>
+    );
+  })}
+</div>
+
+<style>
+  .lang-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 999px;
+    border: 1px solid var(--theme-border);
+    background: color-mix(in srgb, var(--theme-bg) 60%, transparent);
+    backdrop-filter: blur(10px);
+  }
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 9px;
+    height: 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--theme-text-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .lang-btn:hover { color: var(--theme-accent); }
+  .lang-btn[data-active="true"] {
+    background: color-mix(in srgb, var(--theme-accent) 18%, transparent);
+    color: var(--theme-accent);
+  }
+  .lang-flag {
+    font-size: 14px;
+    line-height: 1;
+    /* keep emoji rendering crisp on platforms that have it */
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  }
+  .lang-label { font-size: 10px; }
+
+  @media (max-width: 720px) {
+    .lang-btn { padding: 3px 7px; }
+    .lang-label { display: none; }
+  }
+</style>
