@@ -1,10 +1,20 @@
 ---
-title: Example Blog Post
-date: 2024-06-15
-description: This is an example blog post to demonstrate the content structure and formatting.
-tags: [example, blog]
+title: Hello World — first post on the blog
+img: /blog/hello-world.svg
+tags: [meta, intro]
+date: 2026-01-12
+author: Luisa Martins
+description: Kicking things off — what this blog is for and what you can expect.
 ---
 
-# Example Blog Post
+# Hello World
 
-This is an example blog post to demonstrate the content structure and formatting. You can write your blog posts in Markdown format, and they will be rendered beautifully on your portfolio site.
+This is the first post on the blog. Expect notes on Kotlin, Android, Rust, and whatever else I'm digging into.
+
+## What lives here
+
+- Deep dives on stuff I built
+- Lessons from rolling out infra at scale
+- Occasional rants on tooling
+
+Stick around.

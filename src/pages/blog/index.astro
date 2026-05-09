@@ -1,0 +1,224 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags))).sort();
+
+const fmtDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+<Layout title="Blog — Luisa Martins">
+  <nav id="navbar" class="navbar scrolled">
+    <div class="nav-gradient"></div>
+    <div class="nav-content">
+      <a href="/" class="nav-logo">luisamartins.dev</a>
+      <div class="nav-links" id="nav-links">
+        <a href="/#about" class="nav-link">about</a>
+        <a href="/#projects" class="nav-link">projects</a>
+        <a href="/blog/" class="nav-link active">blog</a>
+        <a href="/#resume" class="nav-link">resume</a>
+        <a href="/#contact" class="nav-link">contact</a>
+      </div>
+      <div class="nav-right">
+        <div class="theme-picker" aria-label="Theme picker">
+          <button data-theme="vaporwave" aria-label="Vaporwave"><span class="swatch"></span></button>
+          <button data-theme="terminal"  aria-label="Terminal"><span class="swatch"></span></button>
+          <button data-theme="portal"    aria-label="Portal"><span class="swatch"></span></button>
+        </div>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="blog-page">
+    <div class="container">
+      <header class="blog-header">
+        <div class="section-num">// blog</div>
+        <h1 class="blog-h1">Notes & writeups</h1>
+        <p class="blog-sub">Things I learned, broke, or shipped.</p>
+      </header>
+
+      <div class="search-wrap">
+        <input id="blog-search" type="search" placeholder="Search posts..." autocomplete="off" />
+        <div class="tag-filters" id="tag-filters">
+          <button class="tag-pill active" data-tag="__all__">all</button>
+          {allTags.map(t => (
+            <button class="tag-pill" data-tag={t}>#{t}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="post-list" id="post-list">
+        {posts.map(p => (
+          <a
+            href={`/blog/${p.id}/`}
+            class="post-card"
+            data-title={p.data.title.toLowerCase()}
+            data-desc={(p.data.description || '').toLowerCase()}
+            data-tags={p.data.tags.join(',').toLowerCase()}
+          >
+            {p.data.img && <div class="post-img-wrap"><img src={p.data.img} alt="" loading="lazy" /></div>}
+            <div class="post-body">
+              <div class="post-meta">{fmtDate(p.data.date)} · {p.data.author}</div>
+              <h2 class="post-title">{p.data.title}</h2>
+              {p.data.description && <p class="post-desc">{p.data.description}</p>}
+              <div class="post-tags">
+                {p.data.tags.map(t => <span class="post-tag">#{t}</span>)}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div id="empty-state" class="empty-state" hidden>
+        <p>No posts match your search.</p>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: all 0.4s ease; background: color-mix(in srgb, var(--theme-bg) 95%, transparent); backdrop-filter: blur(16px); border-bottom: 1px solid var(--theme-border); }
+  .nav-gradient { height: 5px; background: linear-gradient(90deg,#55CDFC 20%,#F7A8B8 20% 40%,#FFFFFF 40% 60%,#F7A8B8 60% 80%,#55CDFC 80%); }
+  .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 58px; gap: 16px; }
+  .nav-logo { font-family: 'Space Mono', monospace; font-size: 15px; font-weight: 700; color: var(--theme-accent); text-decoration: none; letter-spacing: -0.02em; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-link { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--theme-text-muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+  .nav-link.active, .nav-link:hover { color: var(--theme-accent); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-toggle { display: none; background: transparent; border: 1px solid var(--theme-border); border-radius: 8px; width: 36px; height: 36px; cursor: pointer; padding: 0; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+  .nav-toggle span { display: block; width: 16px; height: 2px; background: var(--theme-accent); border-radius: 1px; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .blog-page { background: var(--theme-bg); min-height: 100vh; padding: 140px 32px 100px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .blog-header { margin-bottom: 32px; }
+  .section-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--theme-accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; }
+  .blog-h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: clamp(40px, 6vw, 64px); color: var(--theme-text); line-height: 1.05; margin: 0 0 12px; letter-spacing: -0.02em; }
+  .blog-sub { font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--theme-text-muted); margin: 0; }
+
+  .search-wrap { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+  #blog-search {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
+    color: var(--theme-text);
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  #blog-search:focus { border-color: var(--theme-accent); box-shadow: var(--theme-glow); }
+  #blog-search::placeholder { color: var(--theme-text-muted); }
+
+  .tag-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag-pill {
+    appearance: none;
+    border: 1px solid var(--theme-border);
+    background: transparent;
+    color: var(--theme-text-muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .tag-pill:hover { color: var(--theme-accent); }
+  .tag-pill.active { background: color-mix(in srgb, var(--theme-accent) 15%, transparent); color: var(--theme-accent); border-color: var(--theme-accent); }
+
+  .post-list { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  .post-card {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    padding: 22px;
+    background: var(--theme-surface);
+    border: 1px solid var(--theme-border);
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .post-card:hover { transform: translateY(-4px); background: var(--theme-surface-hover); border-color: color-mix(in srgb, var(--theme-accent) 50%, transparent); box-shadow: var(--theme-glow); }
+  .post-img-wrap { width: 100%; height: 140px; border-radius: 10px; overflow: hidden; background: var(--theme-bg); }
+  .post-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .post-body { display: flex; flex-direction: column; gap: 8px; }
+  .post-meta { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--theme-accent); letter-spacing: 0.08em; }
+  .post-title { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 22px; color: var(--theme-text); margin: 0; line-height: 1.25; }
+  .post-desc { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--theme-text-muted); margin: 0; line-height: 1.65; }
+  .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .post-tag { font-family: 'Space Mono', monospace; font-size: 10px; padding: 2px 9px; border-radius: 999px; background: color-mix(in srgb, var(--theme-accent) 12%, transparent); color: var(--theme-accent); }
+
+  .empty-state { padding: 40px; text-align: center; color: var(--theme-text-muted); font-family: 'Space Mono', monospace; }
+
+  @media (max-width: 720px) {
+    .nav-content { padding: 0 18px; }
+    .nav-links {
+      position: fixed; inset: 64px 12px auto 12px; flex-direction: column; gap: 4px;
+      padding: 18px; background: color-mix(in srgb, var(--theme-bg) 96%, transparent);
+      backdrop-filter: blur(20px); border: 1px solid var(--theme-border); border-radius: 14px;
+      transform: translateY(-12px); opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease; z-index: 99;
+    }
+    .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .nav-toggle { display: inline-flex; }
+    .blog-page { padding: 110px 18px 70px; }
+    .post-card { grid-template-columns: 1fr; }
+    .post-img-wrap { height: 180px; }
+  }
+</style>
+
+<script>
+  const search = document.getElementById('blog-search') as HTMLInputElement | null;
+  const list = document.getElementById('post-list');
+  const empty = document.getElementById('empty-state');
+  const tagBtns = document.querySelectorAll<HTMLButtonElement>('.tag-pill');
+  let activeTag = '__all__';
+
+  function applyFilter() {
+    if (!list) return;
+    const q = (search?.value || '').toLowerCase().trim();
+    const cards = Array.from(list.querySelectorAll<HTMLAnchorElement>('.post-card'));
+    let visible = 0;
+    cards.forEach(c => {
+      const title = c.dataset.title || '';
+      const desc = c.dataset.desc || '';
+      const tags = (c.dataset.tags || '').split(',');
+      const matchQ = !q || title.includes(q) || desc.includes(q) || tags.some(t => t.includes(q));
+      const matchTag = activeTag === '__all__' || tags.includes(activeTag.toLowerCase());
+      const show = matchQ && matchTag;
+      c.style.display = show ? 'grid' : 'none';
+      if (show) visible++;
+    });
+    if (empty) empty.hidden = visible !== 0;
+  }
+
+  search?.addEventListener('input', applyFilter);
+  tagBtns.forEach(b => b.addEventListener('click', () => {
+    tagBtns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    activeTag = b.dataset.tag || '__all__';
+    applyFilter();
+  }));
+
+  // mobile nav toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  navToggle?.addEventListener('click', () => {
+    const open = navLinks?.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(!!open));
+  });
+</script>
