@@ -14,7 +14,8 @@ github: 'https://github.com/lomartins/compose-dynamic-color-imagevector'
 Shows how to build programmatic `ImageVector`s in Jetpack Compose whose colors adapt to a Material3 dynamic color theme at runtime.
 
 
-![Demo](https://raw.githubusercontent.com/lomartins/compose-dynamic-color-imagevector/master/images/demo.gif)
+<img src="https://raw.githubusercontent.com/lomartins/compose-dynamic-color-imagevector/master/images/demo.gif" alt="Demo" height="600" />
+
 
 Instead of using static XML drawables, each path is constructed via `ImageVector.Builder` with explicit color parameters — making it trivial to swap colors from `MaterialTheme.colorScheme` or any runtime source.
 

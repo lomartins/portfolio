@@ -14,7 +14,7 @@ Clean Android app for splitting restaurant bills and calculating tips. Handles t
 
 **Status**: v1.0.0 — Production Release | **Platform**: Android 5.0+ | **APK**: 49.4 MB
 
-![Home Screen](https://raw.githubusercontent.com/lomartins/tip-splitter/refs/heads/main/screenshots/01-home.png)
+<img src="https://raw.githubusercontent.com/lomartins/tip-splitter/refs/heads/main/screenshots/01-home.png" alt="Home Screen" height="600" />
 
 ### Key Features
 
