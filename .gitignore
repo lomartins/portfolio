@@ -26,3 +26,7 @@ pnpm-debug.log*
 .omc/
 
 .cc-history/
+
+# claude code: ignore session artifacts but keep launch config
+.claude/*
+!.claude/launch.json
