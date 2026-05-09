@@ -32,6 +32,7 @@ const profileCollection = defineCollection({
   loader: glob({ pattern: "index.md", base: "./src/content/profile" }),
   schema: z.object({
     name: z.string(),
+    avatar: z.string().optional(),
     hero_title: z.string(),
     hero_description: z.string(),
     hero_tags: z.array(z.string()),

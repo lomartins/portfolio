@@ -114,6 +114,9 @@ function getTechColor(label: string) {
 
     <div class="hero-content">
       <div>
+        {profile.avatar && (
+          <img src={profile.avatar} alt={profile.name} loading="eager" decoding="async" class="hero-avatar" />
+        )}
         <div class="hero-subtitle">{'>'} {profile.hero_title}</div>
         <h1 class="glitch-wrap hero-title" data-text={profile.name}>{profile.name}</h1>
         <p class="hero-desc">{profile.hero_description}</p>
@@ -130,24 +133,6 @@ function getTechColor(label: string) {
       </div>
       
       <div class="hero-right">
-        <!-- Render Blaahaj or Terminal based on attributes using CSS -->
-        <div class="blaahaj-container">
-          <svg viewBox="0 0 200 120" width="260" height="156" style="animation: float 4s ease-in-out infinite;">
-            <ellipse cx="100" cy="65" rx="85" ry="38" fill="#5bbbd4" />
-            <ellipse cx="106" cy="76" rx="58" ry="20" fill="#d8eff6" />
-            <polygon points="118,25 148,62 90,62" fill="#3d9dbc" />
-            <polygon points="82,76 52,102 88,82" fill="#3d9dbc" />
-            <polygon points="18,48 2,25 32,60" fill="#3d9dbc" />
-            <polygon points="18,75 2,95 32,60" fill="#3d9dbc" />
-            <circle cx="158" cy="58" r="7" fill="#1a1a2e" />
-            <circle cx="160" cy="55.5" r="2.5" fill="white" />
-            <path d="M 146 70 Q 157 79 168 70" fill="none" stroke="#1a1a2e" stroke-width="2.5" stroke-linecap="round" />
-            <path d="M 138 60 Q 141 68 138 76" fill="none" stroke="rgba(61,157,188,0.7)" stroke-width="1.5" />
-            <ellipse cx="177" cy="64" rx="10" ry="7" fill="#6dcee5" opacity="0.6" />
-          </svg>
-          <div class="blaahaj-text">blåhaj-certified dev 🏳️‍⚧️🦈</div>
-        </div>
-        
         <div class="terminal-container">
           <div class="terminal-window">
             <div class="term-line"><span class="term-prompt">$</span> whoami</div>
@@ -410,6 +395,7 @@ function getTechColor(label: string) {
   .hero-sun-line { position: absolute; left: 0; right: 0; background: var(--theme-bg); }
   .hero-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1; background-image: repeating-linear-gradient(0deg,rgba(0,0,0,0.04) 0px,rgba(0,0,0,0.04) 1px,transparent 1px,transparent 4px); }
   .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 0 32px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding-top: 80px; animation: fadeUp 1s ease forwards; }
+  .hero-avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; display: block; margin-bottom: 20px; border: 2px solid var(--theme-accent); box-shadow: var(--theme-glow); background: var(--theme-surface); }
   .hero-subtitle { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--theme-accent-alt); letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 16px; }
   .hero-title { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: clamp(44px, 7.5vw, 100px); line-height: 0.95; color: var(--theme-text); margin-bottom: 24px; letter-spacing: -0.03em; text-shadow: 0 0 60px color-mix(in srgb, var(--theme-accent) 30%, transparent); }
   .hero-desc { font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--theme-text-muted); line-height: 1.8; max-width: 460px; margin-bottom: 28px; }
@@ -423,10 +409,8 @@ function getTechColor(label: string) {
   .hero-right { display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; gap: 10px; }
   .hero-bg-text { position: absolute; top: 0; right: -8px; font-family: 'Space Mono', monospace; font-size: 44px; color: color-mix(in srgb, var(--theme-accent) 12%, transparent); line-height: 1.25; user-select: none; font-weight: 700; pointer-events: none; }
 
-  .blaahaj-container { display: block; }
   .terminal-container { display: block; }
 
-  .blaahaj-text { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--theme-text-muted); letter-spacing: 0.08em; text-align: center; }
   .terminal-window { background: var(--theme-surface); border: 1px solid var(--theme-border); border-radius: 16px; padding: 2em 8em 4em 2em; width: 100%; max-width: 400px; font-family: 'Space Mono', monospace; font-size: 13px; line-height: 2; color: var(--theme-text-muted); }
   .term-prompt { color: var(--theme-accent); }
   .term-green { color: var(--theme-green); }
@@ -451,7 +435,7 @@ function getTechColor(label: string) {
   .stack-title { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--theme-text-muted); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 16px; }
   
   .badges-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-  .tech-badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-family: 'Space Mono', monospace; font-weight: 700; background: color-mix(in srgb, var(--badge-color) 15%, transparent); color: var(--badge-color); border: 1px solid color-mix(in srgb, var(--badge-color) 30%, transparent); letter-spacing: 0.05em; white-space: nowrap; }
+  .tech-badge { display: inline-flex; align-items: center; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-family: 'Space Mono', monospace; font-weight: 700; background: color-mix(in srgb, var(--badge-color) 22%, var(--theme-bg)); color: color-mix(in srgb, var(--badge-color) 70%, white); border: 1px solid color-mix(in srgb, var(--badge-color) 55%, transparent); letter-spacing: 0.05em; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
 
   .filter-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
   .filter-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 20px; cursor: pointer; border: 1px solid var(--theme-border); background: transparent; color: var(--theme-text-muted); font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.06em; transition: all 0.2s; }
@@ -524,10 +508,12 @@ function getTechColor(label: string) {
 
   /* === Responsive === */
   @media (max-width: 900px) {
-    .hero-content { grid-template-columns: 1fr; gap: 32px; padding-top: 100px; }
+    .hero-section { min-height: auto; padding-bottom: 80px; }
+    .hero-content { grid-template-columns: 1fr; gap: 32px; padding-top: 100px; padding-bottom: 40px; }
     .hero-right { order: 2; }
     .hero-bg-text { display: none; }
     .terminal-window { padding: 1.5em 1.5em 2em 1.5em; max-width: 100%; }
+    .scroll-indicator { display: none; }
     .about-grid { grid-template-columns: 1fr; gap: 32px; }
     summary { grid-template-columns: 1fr; }
     .cs-arrow { justify-self: end; }
@@ -573,7 +559,6 @@ function getTechColor(label: string) {
     .footer-content { flex-direction: column; align-items: flex-start; }
     .contact-link { padding: 12px 18px; font-size: 13px; }
     .projects-grid, .blog-grid { grid-template-columns: 1fr; }
-    .blaahaj-container svg { width: 200px; height: auto; }
   }
 
   @media (max-width: 420px) {

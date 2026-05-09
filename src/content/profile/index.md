@@ -1,6 +1,7 @@
 ---
 # Hero
 name: Luisa Martins
+avatar: https://avatars.githubusercontent.com/lomartins
 hero_title: Mobile Developer
 hero_description: |
   5+ years in Android & Kotlin Multiplatform.
