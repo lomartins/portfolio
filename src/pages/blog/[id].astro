@@ -52,6 +52,7 @@ const fmtDate = (d: Date) =>
           <button data-theme="vaporwave" aria-label="Vaporwave"><span class="swatch"></span></button>
           <button data-theme="terminal"  aria-label="Terminal"><span class="swatch"></span></button>
           <button data-theme="portal"    aria-label="Portal"><span class="swatch"></span></button>
+          <button data-theme="light"     aria-label="Light"><span class="swatch"></span></button>
         </div>
         <button id="nav-toggle" class="nav-toggle" aria-label="Menu">
           <span></span><span></span><span></span>
@@ -104,7 +105,7 @@ const fmtDate = (d: Date) =>
   .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; height: 58px; gap: 16px; }
   .nav-logo { font-family: 'Space Mono', monospace; font-size: 15px; font-weight: 700; color: var(--theme-accent); text-decoration: none; }
   .nav-links { display: flex; gap: 28px; margin-left: auto; }
-  .nav-link { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--theme-text-muted); text-decoration: none; letter-spacing: 0.1em; }
+  .nav-link { font-family: 'Space Mono', monospace; font-size: 11px; color: color-mix(in srgb, var(--theme-text) 72%, var(--theme-bg)); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
   .nav-link.active, .nav-link:hover { color: var(--theme-accent); }
   .nav-right { display: flex; align-items: center; gap: 12px; }
   .nav-toggle { display: none; background: transparent; border: 1px solid var(--theme-border); border-radius: 8px; width: 36px; height: 36px; cursor: pointer; padding: 0; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }

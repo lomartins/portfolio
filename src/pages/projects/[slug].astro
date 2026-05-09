@@ -15,7 +15,32 @@ const { Content } = await render(project);
 ---
 
 <Layout title={`${project.data.name} — Luisa Martins`}>
-  <div style="background: var(--theme-bg); min-height: 100vh; padding: 100px 32px;">
+  <nav id="navbar" class="navbar scrolled">
+    <div class="nav-gradient"></div>
+    <div class="nav-content">
+      <a href="/" class="nav-logo">luisamartins.dev</a>
+      <div class="nav-links" id="nav-links">
+        <a href="/#about" class="nav-link">about</a>
+        <a href="/#projects" class="nav-link active">projects</a>
+        <a href="/blog/" class="nav-link">blog</a>
+        <a href="/#resume" class="nav-link">resume</a>
+        <a href="/#contact" class="nav-link">contact</a>
+      </div>
+      <div class="nav-right">
+        <div class="theme-picker" aria-label="Theme picker">
+          <button data-theme="vaporwave" aria-label="Vaporwave"><span class="swatch"></span></button>
+          <button data-theme="terminal"  aria-label="Terminal"><span class="swatch"></span></button>
+          <button data-theme="portal"    aria-label="Portal"><span class="swatch"></span></button>
+          <button data-theme="light"     aria-label="Light"><span class="swatch"></span></button>
+        </div>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div style="background: var(--theme-bg); min-height: 100vh; padding: 130px 32px 100px;">
     <div style="max-width: 800px; margin: 0 auto; background: var(--theme-surface); border: 1px solid var(--theme-border); border-radius: 16px; padding: 40px; color: var(--theme-text); font-family: 'DM Sans', sans-serif;">
       
       <a href="/" style="color: var(--theme-accent); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; margin-bottom: 32px; display: inline-block;">
@@ -24,7 +49,7 @@ const { Content } = await render(project);
 
       <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
         {project.data.image ? (
-          <img src={project.data.image} alt={`${project.data.name} logo`} style="width: 48px; height: 48px; object-fit: contain;" />
+          <img src={project.data.image} alt={`${project.data.name} logo`} style="height: 48px; width: auto; max-width: 160px; object-fit: contain; display: block;" />
         ) : (
           <span style="font-size: 48px;">{project.data.emoji}</span>
         )}
@@ -57,6 +82,45 @@ const { Content } = await render(project);
     </div>
   </div>
 </Layout>
+
+<style>
+  .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: all 0.4s ease; background: color-mix(in srgb, var(--theme-bg) 95%, transparent); backdrop-filter: blur(16px); border-bottom: 1px solid var(--theme-border); }
+  .nav-gradient { height: 5px; background: linear-gradient(90deg,#55CDFC 20%,#F7A8B8 20% 40%,#FFFFFF 40% 60%,#F7A8B8 60% 80%,#55CDFC 80%); }
+  .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; height: 58px; gap: 16px; }
+  .nav-logo { font-family: 'Space Mono', monospace; font-size: 15px; font-weight: 700; color: var(--theme-accent); text-decoration: none; letter-spacing: -0.02em; }
+  .nav-links { display: flex; gap: 28px; margin-left: auto; }
+  .nav-link { font-family: 'Space Mono', monospace; font-size: 11px; color: color-mix(in srgb, var(--theme-text) 72%, var(--theme-bg)); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+  .nav-link.active, .nav-link:hover { color: var(--theme-accent); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-toggle { display: none; background: transparent; border: 1px solid var(--theme-border); border-radius: 8px; width: 36px; height: 36px; cursor: pointer; padding: 0; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+  .nav-toggle span { display: block; width: 16px; height: 2px; background: var(--theme-accent); border-radius: 1px; transition: transform 0.25s ease, opacity 0.25s ease; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav-content { padding: 0 18px; }
+    .nav-links {
+      position: fixed; inset: 64px 12px auto 12px; flex-direction: column; gap: 4px;
+      padding: 18px; background: color-mix(in srgb, var(--theme-bg) 96%, transparent);
+      backdrop-filter: blur(20px); border: 1px solid var(--theme-border); border-radius: 14px;
+      transform: translateY(-12px); opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease; z-index: 99;
+    }
+    .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .nav-toggle { display: inline-flex; }
+    .nav-right { margin-left: auto; }
+  }
+</style>
+
+<script>
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  navToggle?.addEventListener('click', () => {
+    const open = navLinks?.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(!!open));
+  });
+</script>
 
 <style is:global>
   .project-content h2, .project-content h3 {

@@ -90,6 +90,7 @@ function getTechColor(label: string) {
           <button data-theme="vaporwave" aria-label="Vaporwave"><span class="swatch"></span></button>
           <button data-theme="terminal"  aria-label="Terminal"><span class="swatch"></span></button>
           <button data-theme="portal"    aria-label="Portal"><span class="swatch"></span></button>
+          <button data-theme="light"     aria-label="Light"><span class="swatch"></span></button>
         </div>
         <button id="nav-toggle" class="nav-toggle" aria-label="Menu">
           <span></span><span></span><span></span>
@@ -385,8 +386,8 @@ function getTechColor(label: string) {
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
   .nav-logo { font-family: 'Space Mono', monospace; font-size: 15px; font-weight: 700; color: var(--theme-accent); text-decoration: none; letter-spacing: -0.02em; }
   .nav-links { display: flex; gap: 28px; }
-  .nav-link { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--theme-text-muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
-  .nav-link:hover { color: var(--theme-accent); }
+  .nav-link { font-family: 'Space Mono', monospace; font-size: 11px; color: color-mix(in srgb, var(--theme-text) 72%, var(--theme-bg)); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+  .nav-link.active, .nav-link:hover { color: var(--theme-accent); }
 
   .hero-section { min-height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; background: var(--theme-bg); }
   .hero-grid-bg { position: absolute; bottom: 0; left: 0; right: 0; height: 46%; background-image: linear-gradient(var(--theme-grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--theme-grid-color) 1px, transparent 1px); background-size: 60px 60px; transform: perspective(420px) rotateX(62deg); transform-origin: bottom; -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%); mask-image: linear-gradient(to top, black 0%, transparent 100%); }
@@ -447,8 +448,8 @@ function getTechColor(label: string) {
   .project-card:hover { background: var(--theme-surface-hover); border-color: color-mix(in srgb, var(--theme-accent) 70%, transparent); box-shadow: var(--theme-glow); transform: translateY(-4px); }
   .project-card-highlight { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: all 0.3s ease; }
   .project-card:hover .project-card-highlight { background: linear-gradient(90deg, transparent, var(--theme-accent), transparent); }
-  .project-emoji { font-size: 26px; margin-bottom: 10px; line-height: 1; }
-  .project-emoji img { width: 26px; height: 26px; object-fit: contain; display: block; }
+  .project-emoji { font-size: 26px; margin-bottom: 10px; line-height: 1; height: 26px; display: flex; align-items: center; }
+  .project-emoji img { height: 26px; width: auto; max-width: 100%; object-fit: contain; display: block; }
   .project-name { margin: 0 0 8px; font-family: 'Space Mono', monospace; font-size: 14px; color: var(--theme-text); font-weight: 700; }
   .project-desc { margin: 0 0 16px; font-size: 13px; color: var(--theme-text-muted); line-height: 1.65; font-family: 'DM Sans', sans-serif; }
 
