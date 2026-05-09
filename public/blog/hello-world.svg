@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1b26"/>
+      <stop offset="100%" stop-color="#0d0e14"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff79c6"/>
+      <stop offset="50%" stop-color="#bd93f9"/>
+      <stop offset="100%" stop-color="#8be9fd"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="320" fill="url(#bg)"/>
+
+  <g opacity="0.35" stroke="#bd93f9" stroke-width="1">
+    <line x1="0" y1="220" x2="600" y2="220"/>
+    <line x1="0" y1="245" x2="600" y2="245"/>
+    <line x1="0" y1="270" x2="600" y2="270"/>
+    <line x1="0" y1="295" x2="600" y2="295"/>
+    <line x1="100" y1="220" x2="-50" y2="320"/>
+    <line x1="200" y1="220" x2="120" y2="320"/>
+    <line x1="300" y1="220" x2="300" y2="320"/>
+    <line x1="400" y1="220" x2="480" y2="320"/>
+    <line x1="500" y1="220" x2="650" y2="320"/>
+  </g>
+
+  <circle cx="300" cy="180" r="80" fill="url(#sun)"/>
+  <rect x="220" y="180" width="160" height="6" fill="#1a1b26"/>
+  <rect x="220" y="195" width="160" height="5" fill="#1a1b26"/>
+  <rect x="220" y="208" width="160" height="4" fill="#1a1b26"/>
+
+  <text x="300" y="100" text-anchor="middle"
+    font-family="'Space Mono', monospace" font-size="32" font-weight="700"
+    fill="#f8f8f2" letter-spacing="0.05em">
+    hello, world
+  </text>
+  <text x="300" y="130" text-anchor="middle"
+    font-family="'Space Mono', monospace" font-size="13"
+    fill="#bd93f9" letter-spacing="0.18em">
+    // FIRST POST
+  </text>
+</svg>

@@ -64,7 +64,7 @@ const fmtDate = (d: Date) =>
             data-desc={(p.data.description || '').toLowerCase()}
             data-tags={p.data.tags.join(',').toLowerCase()}
           >
-            {p.data.img && <div class="post-img-wrap"><img src={p.data.img} alt="" loading="lazy" /></div>}
+            {p.data.img && <div class="post-img-wrap"><img src={p.data.img} alt="" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f='1';this.src='/blog/fallback.svg';}" /></div>}
             <div class="post-body">
               <div class="post-meta">{fmtDate(p.data.date)} · {p.data.author}</div>
               <h2 class="post-title">{p.data.title}</h2>
@@ -86,9 +86,9 @@ const fmtDate = (d: Date) =>
 <style>
   .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: all 0.4s ease; background: color-mix(in srgb, var(--theme-bg) 95%, transparent); backdrop-filter: blur(16px); border-bottom: 1px solid var(--theme-border); }
   .nav-gradient { height: 5px; background: linear-gradient(90deg,#55CDFC 20%,#F7A8B8 20% 40%,#FFFFFF 40% 60%,#F7A8B8 60% 80%,#55CDFC 80%); }
-  .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 58px; gap: 16px; }
+  .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; height: 58px; gap: 16px; }
   .nav-logo { font-family: 'Space Mono', monospace; font-size: 15px; font-weight: 700; color: var(--theme-accent); text-decoration: none; letter-spacing: -0.02em; }
-  .nav-links { display: flex; gap: 28px; }
+  .nav-links { display: flex; gap: 28px; margin-left: auto; }
   .nav-link { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--theme-text-muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
   .nav-link.active, .nav-link:hover { color: var(--theme-accent); }
   .nav-right { display: flex; align-items: center; gap: 12px; }
@@ -175,6 +175,7 @@ const fmtDate = (d: Date) =>
     }
     .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
     .nav-toggle { display: inline-flex; }
+    .nav-right { margin-left: auto; }
     .blog-page { padding: 110px 18px 70px; }
     .post-card { grid-template-columns: 1fr; }
     .post-img-wrap { height: 180px; }

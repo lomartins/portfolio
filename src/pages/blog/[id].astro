@@ -57,7 +57,7 @@ const fmtDate = (d: Date) =>
 
       {post.data.img && (
         <div class="post-hero">
-          <img src={post.data.img} alt="" />
+          <img src={post.data.img} alt="" onerror="if(!this.dataset.f){this.dataset.f='1';this.src='/blog/fallback.svg';}" />
         </div>
       )}
 
@@ -71,9 +71,9 @@ const fmtDate = (d: Date) =>
 <style>
   .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: color-mix(in srgb, var(--theme-bg) 95%, transparent); backdrop-filter: blur(16px); border-bottom: 1px solid var(--theme-border); }
   .nav-gradient { height: 5px; background: linear-gradient(90deg,#55CDFC 20%,#F7A8B8 20% 40%,#FFFFFF 40% 60%,#F7A8B8 60% 80%,#55CDFC 80%); }
-  .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 58px; gap: 16px; }
+  .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; height: 58px; gap: 16px; }
   .nav-logo { font-family: 'Space Mono', monospace; font-size: 15px; font-weight: 700; color: var(--theme-accent); text-decoration: none; }
-  .nav-links { display: flex; gap: 28px; }
+  .nav-links { display: flex; gap: 28px; margin-left: auto; }
   .nav-link { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--theme-text-muted); text-decoration: none; letter-spacing: 0.1em; }
   .nav-link.active, .nav-link:hover { color: var(--theme-accent); }
   .nav-right { display: flex; align-items: center; gap: 12px; }
@@ -123,6 +123,7 @@ const fmtDate = (d: Date) =>
     }
     .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
     .nav-toggle { display: inline-flex; }
+    .nav-right { margin-left: auto; }
     .post-page { padding: 100px 18px 70px; }
     .post-content { font-size: 16px; }
   }

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import linkedinIcon from '../assets/icon-linkedin.svg';
 import githubIcon from '../assets/icon-github.svg';
@@ -217,7 +218,7 @@ function getTechColor(label: string) {
               <div class="project-card-highlight"></div>
               <div class="project-emoji">
                 {p.data.image
-                  ? <img src={p.data.image} alt="" aria-hidden="true" />
+                  ? <Image src={p.data.image} alt="" inferSize={true} loading="lazy" decoding="async" />
                   : p.data.emoji}
               </div>
               <h3 class="project-name">{p.data.name}</h3>
@@ -289,7 +290,7 @@ function getTechColor(label: string) {
       <div class="blog-grid">
         {blogPosts.map(post => (
           <a href={`/blog/${post.id}/`} class="blog-card">
-            {post.data.img && <img src={post.data.img} alt="" class="blog-card-img" />}
+            {post.data.img && <img src={post.data.img} alt="" loading="lazy" decoding="async" class="blog-card-img" onerror="if(!this.dataset.f){this.dataset.f='1';this.src='/blog/fallback.svg';}" />}
             <div class="blog-meta">{fmtDate(post.data.date)} · {post.data.author}</div>
             <h3 class="blog-title">{post.data.title}</h3>
             {post.data.description && <p class="blog-excerpt">{post.data.description}</p>}
@@ -328,7 +329,7 @@ function getTechColor(label: string) {
               <div class="timeline-period">{item.period}</div>
               <div class="timeline-role">{item.role}</div>
               <div class="timeline-company">
-                {item.logo && <img src={item.logo} alt={item.company} class="company-logo" />}
+                {item.logo && <img src={item.logo} alt={item.company} loading="lazy" decoding="async" class="company-logo" />}
                 {item.url ? <a href={item.url} class="company-link" target="_blank" rel="noopener noreferrer">{item.company}</a> : item.company}
               </div>
               <p class="timeline-desc">{item.description}</p>
@@ -389,7 +390,8 @@ function getTechColor(label: string) {
   .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: all 0.4s ease; background: transparent; border-bottom: 1px solid transparent; }
   .navbar.scrolled { background: color-mix(in srgb, var(--theme-bg) 95%, transparent); backdrop-filter: blur(16px); border-bottom-color: var(--theme-border); }
   .nav-gradient { height: 5px; background: linear-gradient(90deg,#55CDFC 20%,#F7A8B8 20% 40%,#FFFFFF 40% 60%,#F7A8B8 60% 80%,#55CDFC 80%); }
-  .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 58px; gap: 16px; }
+  .nav-content { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; height: 58px; gap: 16px; }
+  .nav-links { margin-left: auto; }
   .nav-right { display: flex; align-items: center; gap: 12px; }
   .nav-toggle { display: none; background: transparent; border: 1px solid var(--theme-border); border-radius: 8px; width: 36px; height: 36px; cursor: pointer; padding: 0; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
   .nav-toggle span { display: block; width: 16px; height: 2px; background: var(--theme-accent); border-radius: 1px; transition: transform 0.25s ease, opacity 0.25s ease; }
@@ -553,6 +555,7 @@ function getTechColor(label: string) {
     .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
     .nav-link { padding: 10px 6px; font-size: 13px; }
     .nav-toggle { display: inline-flex; }
+    .nav-right { margin-left: auto; }
     .theme-picker { padding: 3px; gap: 3px; }
     .theme-picker button { width: 24px; height: 24px; }
     .theme-picker button .swatch { width: 16px; height: 16px; }

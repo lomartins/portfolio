@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="fbBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1b26"/>
+      <stop offset="100%" stop-color="#0d0e14"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#bd93f9" stroke-opacity="0.18" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="600" height="320" fill="url(#fbBg)"/>
+  <rect width="600" height="320" fill="url(#grid)"/>
+
+  <g transform="translate(300 160)">
+    <circle r="48" fill="none" stroke="#bd93f9" stroke-width="2" stroke-dasharray="4 6"/>
+    <text x="0" y="8" text-anchor="middle"
+      font-family="'Space Mono', monospace" font-size="44" font-weight="700"
+      fill="#bd93f9">?</text>
+  </g>
+
+  <text x="300" y="240" text-anchor="middle"
+    font-family="'Space Mono', monospace" font-size="13"
+    fill="#6272a4" letter-spacing="0.18em">
+    // IMAGE NOT FOUND
+  </text>
+</svg>
