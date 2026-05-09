@@ -57,13 +57,13 @@ Real engineers do not drive directly into conclusion they must before understand
 ### 2. Define the problem space
 Reduce the scope into a concrete thing: **Functional Requirements**, **Non-Functional Requirements** and **Out Off Scope**. Create a list of each thing and think how this requirements could impact on your choices.
 
-### Functional Requirements
+#### Functional Requirements
 - Everything that could be translated to a user feature (ex: feed, comment, authentication)
 
-### Non-Functional Requirements
+#### Non-Functional Requirements
 - Everything that might impact on how functional requirements will be implemented. Such as performance, security, scalability, availability, expected number of users, usability, privacy.
 
-## 3. Design the system at a high level
+### 3. Design the system at a high level
 - Design Most fundamental pieces of the system
 - Start if APIs if needed (if not relevant just draw simple abstraction of backend)
 - Wireframe the main flow and screens (if it was not provided)
@@ -73,7 +73,7 @@ Reduce the scope into a concrete thing: **Functional Requirements**, **Non-Funct
 - Multiple modules or single module
 - Wich Repositories or use cases and datasources?
 
-## 4. Deep dive into the design
+### 4. Deep dive into the design
 - Examine system components.
 - Structure into a mobile perspective.
 - Identify opportunities to improve.
